@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 class AnnonceController extends Controller
 {
-    public function index()
+    public function index()// Retrieve all announcements
     {
-        $annonces = Annonce::all(); // Retrieve all announcements
+        $annonces = annonce::all(); //méthode statique du modèle Eloquent Annonce
         return view('annonces.index', compact('annonces')); // Pass annonces to a view
     }
     public function create()

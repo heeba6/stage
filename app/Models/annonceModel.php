@@ -40,6 +40,7 @@ class annonce extends Model
     {
         return $query->where('etat', 1);//$query représente l'objet de requête en cours 
     }
+    
     public function scopeType($query, $type)// filtre les annonces par type 
     {
         return $query->where('type', $type);
