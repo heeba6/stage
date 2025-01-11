@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class annonce extends Model
+class AnnonceModel extends Model
 {
     protected $table = 'annonce'; 
     protected $fillable = ['IdAn', 'titre', 'description','prix', 'adressse', 'type','datePub','etat','IdUt','photo'];

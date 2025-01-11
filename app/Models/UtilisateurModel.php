@@ -2,11 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class utlisateurModel extends Model
+class UtilisateurModel extends Model
 {
-    protected $table = 'utlisateur'; 
+    use HasFactory;
+    protected $primaryKey = 'IdUt'; // Clé primaire personnalisée
+    public $incrementing = true; // Clé primaire auto-incrémentée
+    protected $keyType = 'int'; // Type entier pour la clé primaire
+
+    protected $table = 'utilisateur'; 
+
     protected $fillable = ['IdUt', 'nom', 'prenom','email', 'mtP','role'];
     public function getFullNameAttribute()
     {

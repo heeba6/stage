@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\UtilisateurModel;
 use Illuminate\Http\Request;
 
-class UtlisateurController extends Controller
+class UtilisateurController extends Controller
 {
     public function index()// Retrieve all users
     {
-        $utlisateurs = UtlisateurModel::all();
+        $utlisateurs = UtilisateurModel::all();
         return view('utlisateurs.index', compact('utlisateurs'));
     }
     public function create()
@@ -25,7 +25,7 @@ class UtlisateurController extends Controller
             'role' => 'required|string|in:user,admin', // Par exemple, les rôles autorisés
         ]);
 
-        UtlisateurModel::create([
+        UtilisateurModel::create([
             'nom' => $request->nom,
             'prenom' => $request->prenom,
             'email' => $request->email,
@@ -37,12 +37,20 @@ class UtlisateurController extends Controller
     }
     public function show($id)
     {
-        $utlisateur = UtlisateurModel::findOrFail($id);
-        return view('utlisateurs.show', compact('utlisateur'));
+        // $utlisateur = UtilisateurModel::findOrFail($id);
+        // return view('utlisateurs.show', compact('utlisateur'));
+        $utilisateur = UtilisateurModel::find($id);
+        //dd($utilisateur);
+
+        if (!$utilisateur) {
+            return response()->json(['message' => 'Utilisateur non trouvé'], 404); // Retourner une erreur si l'utilisateur n'est pas trouvé
+        }
+
+        return response()->json($utilisateur);
     }
     public function edit($id)
     {
-        $utlisateur = UtlisateurModel::findOrFail($id);
+        $utlisateur = UtilisateurModel::findOrFail($id);
         return view('utlisateurs.edit', compact('utlisateur'));
     }
 
