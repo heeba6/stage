@@ -34,5 +34,10 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'gmail' => [
+    'client_id' => env('GMAIL_CLIENT_ID'),
+    'client_secret' => env('GMAIL_CLIENT_SECRET'),
+    'redirect' => env('GMAIL_REDIRECT_URI'),
+]   ,
 
 ];

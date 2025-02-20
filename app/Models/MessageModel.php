@@ -1,32 +1,24 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\AnnonceModel;
 class MessageModel extends Model
 {
     protected $table = 'message';
-    protected $fillable = ['IdMsg', 'contenu', 'dateMsg','expediteur_id','destinataire_id','annonce_id'];
-    //Relation avec le modèle Utilisateur (expéditeur)
-    public function expediteur()
-    {
-        return $this->belongsTo(UtilisateurModel::class, 'expediteur_id', 'IdUt');
-    }
-    //Relation avec le modèle Utilisateur (destinataire).
-    public function destinataire()
-    {
-        return $this->belongsTo(UtilisateurModel::class, 'destinataire_id', 'IdUt');
-    }
+
+    protected $fillable = ['id','sujet', 'nom', 'telephone', 'email', 'contenu', 'annonce_id'];
+
+    // Si la table ne contient pas de colonnes 'created_at' et 'updated_at'
+    public $timestamps = false;
+
+    protected $casts = [
+        'dateMsg' => 'datetime',
+    ];
+
+    // Relation avec l'annonce
     public function annonce()
     {
-        return $this->belongsTo(AnnonceModel::class, 'annonce_id', 'IdAn');
+        return $this->belongsTo(AnnonceModel::class, 'annonce_id', 'id');
     }
-    
-    //Scope pour récupérer les messages d'une annonce spécifique.
-    public function scopeParAnnonce($query, $annonceId)
-    {
-        return $query->where('annonce_id', $annonceId);
-    }
-
 }

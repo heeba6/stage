@@ -4,10 +4,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class AnnonceModel extends Model
 {
-    protected $table = 'annonce'; 
-    protected $fillable = ['IdAn', 'titre', 'description','prix', 'adressse', 'type','datePub','etat','IdUt','photo'];
+    use HasFactory;
+
+    protected $table = 'annoncee'; // Nom de la table
+
+    protected $fillable = ['id', 'titre', 'description','prix', 'surface_habitable','adresse','ville', 'vocation','type','datePub','etat','IdUt','photos',
+    'espaceExterieur', // Nouveau champ
+    'parking', // Nouveau champ
+    'chauffage', // Nouveau champ
+    'proximite', // Nouveau champ
+];
 
     public function getPriceAttribute($value)
     {
@@ -27,10 +36,7 @@ class AnnonceModel extends Model
         return ucwords($value); // Exemple : "ma maison" → "Ma Maison"
     }
 
-    public function utilisateur()
-    {
-        return $this->belongsTo(utlisateur::class, 'IdUt');
-    }
+    
 
     public function getFormattedDateAttribute()
     {
@@ -63,6 +69,16 @@ class AnnonceModel extends Model
         }
         return asset('uploads/annonces/default.png'); // Image par défaut
     }
+
+    public function utilisateur()
+    {
+        return $this->belongsTo(UtilisateurModel::class, 'IdUt');
+    }
+//     public function utilisateur()
+// {
+//     return $this->belongsTo(UtilisateurModel::class, 'IdUt', 'id');
+// }
+
 
 
 

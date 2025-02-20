@@ -14,6 +14,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
+        \Fruitcake\Cors\HandleCors::class, 
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Http\Middleware\HandleCors::class,
         \App\Http\Middleware\TrimStrings::class,
@@ -24,7 +25,9 @@ class Kernel extends HttpKernel
      * The application's route middleware groups.
      *
      * @var array
+     * 
      */
+    
     protected $middlewareGroups = [
         'web' => [
             \App\Http\Middleware\EncryptCookies::class,
@@ -38,9 +41,11 @@ class Kernel extends HttpKernel
         'api' => [
             // \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
             // \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \Fruitcake\Cors\HandleCors::class,
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            'throttle:api',
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \Illuminate\Http\Middleware\HandleCors::class,
+    'throttle:api',
+    \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
 
@@ -62,5 +67,12 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
     ];
+
+    protected $commands = [
+        \App\Console\Commands\GenerateApiToken::class,
+    ];
+
+    
 }
